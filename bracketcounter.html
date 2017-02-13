@@ -1,0 +1,80 @@
+<html>
+<head>
+<title>Dot-bracket converter</title>
+<script type="text/javascript">
+function counterize(inputstring){
+	var indexer_left = new Array();
+	var indexer_right = new Array();
+	var count = 0;
+	var pos_left = inputstring.indexOf("(");
+	while (pos_left != -1){
+		indexer_left[count]=pos_left;
+		count++;
+		pos_left = inputstring.indexOf("(",pos_left+1);
+	}
+	var pos_right = inputstring.indexOf(")");
+	var newcount = 0;
+	while (pos_right != -1){
+		indexer_right[newcount]=pos_right;
+		newcount++;
+		pos_right = inputstring.indexOf(")",pos_right+1);
+	}
+	document.getElementById('output_left_count').value = indexer_left.length;
+	document.getElementById('output_right_count').value = indexer_right.length;
+	if (count != newcount){
+		alert("Left and right brackets do not match!");
+	}
+	else{}
+	var indexer_left_clone = indexer_left.concat(1000000000);
+	var matcharray_right = new Array();
+	var matcharray_left = new Array();
+	for (i=0;i<indexer_right.length;i++) {
+		counter = 0;
+		while (indexer_left_clone[counter] < indexer_right[i]) {
+		counter++
+		}
+		matcharray_left[i] = indexer_left_clone[counter-1];
+		matcharray_right[i] = indexer_right[i];
+		indexer_left_clone.splice(counter-1,1);
+	}
+	var paired_array = new Array();
+	for (j=0;j<matcharray_left.length;j++) {
+	paired_array[j] = (matcharray_left[j]+1) + ":" + (matcharray_right[j]+1);
+	}
+	document.getElementById("bracket_pairs_output").innerHTML = paired_array;
+}
+
+</script>
+</head>
+
+<body>
+<center><a href="index.html">home</a></center>
+<form>
+
+<h1>Dot-bracket structure bracket matcher</h1>
+
+Input is a simple dot-bracket string with only dots (".") and brackets ("(" and ")"). No other characters should be in the string. This script will count the number of left and right brackets, and output a list of matched left-right bracket pairs (indicated by position numbers). You are responsible for ensuring that there are no psuedoknots in your structure. The output will be meaningless otherwise.
+
+
+
+<h2>Input</h2>
+Input text to be processed:<br>
+<textarea id="dotbrackets" style="width:80%;height:80px;">...(((.().((.)).)))...</textarea>
+<input type="button" onclick="counterize(document.getElementById('dotbrackets').value)" value="count brackets">
+<br>
+<br>
+Output:<br>
+Left brackets "(" 
+<input type="text" id="output_left_count"><br>
+Right brackets ")" 
+<input type="text" id="output_right_count"><br>
+<br>
+Bracket pairs (pairing denoted by colon ":", pairs separated by commas ","):<br>
+<textarea id="bracket_pairs_output" style="width:80%;height:80px;"></textarea><br>
+
+</form>
+
+</body>
+
+</html>
+

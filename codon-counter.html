@@ -1,0 +1,158 @@
+<html>
+<header>
+<title>Codon counter</title>
+<script type="text/javascript">
+function gc_counter(elem){
+	var inputtext_raw=elem;
+	var inputarray = new Array();
+	inputarray = inputtext_raw.split(">");
+	var sequencenames_array = new Array();
+	var sequencestrings_array = new Array();
+	var codonfreq_array = new Array();
+	for (i=1;i<inputarray.length;i++){
+		var numnum_array = new Array();
+		numnum_array = inputarray[i].split("\n");
+		sequencenames_array[i-1] = numnum_array[0];	
+		var dumdum
+		dumdum = numnum_array.shift();
+		sequencestrings_array[i-1] = numnum_array.join("");
+	}
+	document.getElementById("numberofsequences").value = sequencenames_array.length;
+	document.getElementById("namesofsequences").value = sequencenames_array;
+	var sequencecodons_array = new Array();
+	for (i=0;i<sequencestrings_array.length;i++){
+		var dummy01_array = sequencestrings_array[i].split("");
+		var numcodons = (dummy01_array.length)/3;
+		var codons_array = new Array();
+		for (j=0;j<numcodons;j++){
+		var codonOfInterest = dummy01_array[3*j] + dummy01_array[(3*j)+1] + dummy01_array[(3*j)+2];
+		codons_array[j] = codonOfInterest;
+		}
+		sequencecodons_array[i] = codons_array;
+	}
+	var codon_counts =  new Array();
+	codon_counts[0] = ["seqname", "TTT", "TTC", "TTA", "TTG", "TCT", "TCC", "TCA", "TCG", "TAT", "TAC", "TAA", "TAG", "TGT", "TGC", "TGA", "TGG", "CTT", "CTC", "CTA", "CTG", "CCT", "CCC", "CCA", "CCG", "CAT", "CAC", "CAA", "CAG", "CGT", "CGC", "CGA", "CGG", "ATT", "ATC", "ATA", "ATG", "ACT", "ACC", "ACA", "ACG", "AAT", "AAC", "AAA", "AAG", "AGT", "AGC", "AGA", "AGG", "GTT", "GTC", "GTA", "GTG", "GCT", "GCC", "GCA", "GCG", "GAT", "GAC", "GAA", "GAG", "GGT", "GGC", "GGA", "GGG", "---"]
+	for (i=0;i<sequencecodons_array.length;i++) {
+		var codon_count_line = new Array();
+		var TTT_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "TTT";});
+		var TTC_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "TTC";});
+		var TTA_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "TTA";});
+		var TTG_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "TTG";});
+		var TCT_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "TCT";});
+		var TCC_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "TCC";});
+		var TCA_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "TCA";});
+		var TCG_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "TCG";});
+		var TAT_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "TAT";});
+		var TAC_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "TAC";});
+		var TAA_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "TAA";});
+		var TAG_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "TAG";});
+		var TGT_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "TGT";});
+		var TGC_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "TGC";});
+		var TGA_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "TGA";});
+		var TGG_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "TGG";});
+		var CTT_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "CTT";});
+		var CTC_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "CTC";});
+		var CTA_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "CTA";});
+		var CTG_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "CTG";});
+		var CCT_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "CCT";});
+		var CCC_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "CCC";});
+		var CCA_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "CCA";});
+		var CCG_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "CCG";});
+		var CAT_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "CAT";});
+		var CAC_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "CAC";});
+		var CAA_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "CAA";});
+		var CAG_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "CAG";});
+		var CGT_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "CGT";});
+		var CGC_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "CGC";});
+		var CGA_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "CGA";});
+		var CGG_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "CGG";});
+		var ATT_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "ATT";});
+		var ATC_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "ATC";});
+		var ATA_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "ATA";});
+		var ATG_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "ATG";});
+		var ACT_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "ACT";});
+		var ACC_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "ACC";});
+		var ACA_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "ACA";});
+		var ACG_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "ACG";});
+		var AAT_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "AAT";});
+		var AAC_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "AAC";});
+		var AAA_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "AAA";});
+		var AAG_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "AAG";});
+		var AGT_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "AGT";});
+		var AGC_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "AGC";});
+		var AGA_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "AGA";});
+		var AGG_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "AGG";});
+		var GTT_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "GTT";});
+		var GTC_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "GTC";});
+		var GTA_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "GTA";});
+		var GTG_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "GTG";});
+		var GCT_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "GCT";});
+		var GCC_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "GCC";});
+		var GCA_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "GCA";});
+		var GCG_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "GCG";});
+		var GAT_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "GAT";});
+		var GAC_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "GAC";});
+		var GAA_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "GAA";});
+		var GAG_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "GAG";});
+		var GGT_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "GGT";});
+		var GGC_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "GGC";});
+		var GGA_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "GGA";});
+		var GGG_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "GGG";});
+		var blank_true = sequencecodons_array[i].filter(function(interrogate){return interrogate == "---";});
+		var codon_count_line = ["\n" + sequencenames_array[i], TTT_true.length, TTC_true.length, TTA_true.length, TTG_true.length, TCT_true.length, TCC_true.length, TCA_true.length, TCG_true.length, TAT_true.length, TAC_true.length, TAA_true.length, TAG_true.length, TGT_true.length, TGC_true.length, TGA_true.length, TGG_true.length, CTT_true.length, CTC_true.length, CTA_true.length, CTG_true.length, CCT_true.length, CCC_true.length, CCA_true.length, CCG_true.length, CAT_true.length, CAC_true.length, CAA_true.length, CAG_true.length, CGT_true.length, CGC_true.length, CGA_true.length, CGG_true.length, ATT_true.length, ATC_true.length, ATA_true.length, ATG_true.length, ACT_true.length, ACC_true.length, ACA_true.length, ACG_true.length, AAT_true.length, AAC_true.length, AAA_true.length, AAG_true.length, AGT_true.length, AGC_true.length, AGA_true.length, AGG_true.length, GTT_true.length, GTC_true.length, GTA_true.length, GTG_true.length, GCT_true.length, GCC_true.length, GCA_true.length, GCG_true.length, GAT_true.length, GAC_true.length, GAA_true.length, GAG_true.length, GGT_true.length, GGC_true.length, GGA_true.length, GGG_true.length, blank_true.length]
+		codon_counts[i+1] = codon_count_line;
+	}
+	document.getElementById("codoncounts").value = codon_counts;
+
+}
+
+
+</script> 
+</header>
+
+<body>
+<center><a href="index.html">home</a></center>
+<h1>Codon Counter</h1>
+
+<h2>Instructions</h2>
+<p>Input: FASTA-formatted, ATCG only (no U's!), no commas in sequence names, no spaces or characters other than A,T,C,G,- in the sequence. Sequence MUST begin on the first codon position and be aligned properly throughout; gaps must be in multiples of three (i.e. ---); GIGO otherwise. </p>
+
+<p>Output: Is in comma-delimited format. First line is a row of headers. Copy and paste and save as a plain text file with the file extension .csv.</p>
+
+<form>
+<h2>Input</h2>
+<textarea id="inputtext" style="width:80%;height:80px;">>Hello
+ATCGTC
+ACTGCT
+CATGCT
+>Bye
+ACTCTC
+ACTCTC
+ATCATG
+>Hi
+ACTACA
+ACTATA
+ACATCG</textarea><br>
+<input type="button" onclick="gc_counter(document.getElementById('inputtext').value)" value="submit"><br>
+<br>
+<h2>Output</h2>
+Number of sequences:<br>
+<input type="text" id="numberofsequences"><br>
+<br>
+Sequence names:<br>
+<textarea id="namesofsequences" style="width:80%;height:80px;"></textarea><br>
+<br>
+<br>
+Codon counts<br>
+<textarea id="codoncounts" style="width:100%;height:80px;"></textarea><br>
+<br>
+
+
+</form>
+
+
+
+</body>
+
+
+</html>

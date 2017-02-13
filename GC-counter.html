@@ -1,0 +1,153 @@
+<html>
+<header>
+<title>GC counter</title>
+<script type="text/javascript">
+function gc_counter(elem){
+	var inputtext_raw=elem;
+	var inputarray = new Array();
+	inputarray = inputtext_raw.split(">");
+	var sequencenames_array = new Array();
+	var numberA_array = new Array();
+	var numberT_array = new Array();
+	var numberG_array = new Array();
+	var numberC_array = new Array();
+	var numberU_array = new Array();
+	for(i=1;i<inputarray.length;i++){
+		sequencesplit_array = inputarray[i].split("\n");
+		sequencenames_array[i-1] = sequencesplit_array[0];
+		var numberA=0;
+		var numberT=0;
+		var numberG=0;
+		var numberC=0;
+		var numberU=0;
+		for(j=1;j<sequencesplit_array.length;j++){
+			posA = sequencesplit_array[j].indexOf("A");
+			while(posA != -1){
+				numberA++;
+				posA = sequencesplit_array[j].indexOf("A",posA+1);
+			}
+			posT = sequencesplit_array[j].indexOf("T");
+			while(posT != -1){
+				numberT++;
+				posT = sequencesplit_array[j].indexOf("T",posT+1);
+			}
+			posC = sequencesplit_array[j].indexOf("C");
+			while(posC != -1){
+				numberC++;
+				posC = sequencesplit_array[j].indexOf("C",posC+1);
+			}
+			posG = sequencesplit_array[j].indexOf("G");
+			while(posG != -1){
+				numberG++;
+				posG = sequencesplit_array[j].indexOf("G",posG+1);
+			}
+			posU = sequencesplit_array[j].indexOf("U");
+			while(posU != -1){
+				numberU++;
+				posU = sequencesplit_array[j].indexOf("U",posU+1);
+			}
+		}
+		numberA_array[i-1]=numberA;
+		numberT_array[i-1]=numberT;
+		numberG_array[i-1]=numberG;
+		numberC_array[i-1]=numberC;
+		numberU_array[i-1]=numberU;
+	}
+	var totalGC = new Array();
+	for(k=0;k<sequencenames_array.length;k++){
+		totalGC[k]=100*((numberG_array[k]+numberC_array[k])/(numberG_array[k]+numberC_array[k]+numberA_array[k]+numberT_array[k]+numberU_array[k]));
+	}
+	var totalGC_rounded = new Array();
+	for(l=0;l<totalGC.length;l++){
+		totalGC_rounded[l]=(Math.round(totalGC[l]*100))/100;
+	}
+	var sumGC=0;
+	for(m=0;m<totalGC.length;m++){
+		sumGC = sumGC + totalGC[m];
+	}
+	var averageGC = sumGC/(totalGC.length+1);
+	var variancenumerator = 0;
+	for(n=0;n<totalGC.length;n++){
+		variancenumerator = variancenumerator + Math.pow((totalGC[n]-averageGC),2);
+	}
+	var GCvariance = variancenumerator/(totalGC.length + 1);
+	var GCsd = Math.sqrt(GCvariance);
+	document.getElementById('numberofsequences').value=inputarray.length-1;
+	document.getElementById('namesofsequences').value=sequencenames_array;
+	document.getElementById('numberA').value=numberA_array;
+	document.getElementById('numberT').value=numberT_array;
+	document.getElementById('numberU').value=numberU_array;
+	document.getElementById('numberC').value=numberC_array;
+	document.getElementById('numberG').value=numberG_array;
+	document.getElementById('totalGC').value=totalGC_rounded;
+	document.getElementById('averageGC').value=averageGC;
+	document.getElementById('GCvariance').value=GCvariance;
+	document.getElementById('GCsd').value=GCsd;
+}
+
+
+</script> 
+</header>
+
+<body>
+<center><a href="index.html">home</a></center>
+<h1>GC% Calculator</h1>
+
+<p>This form calculates the GC% for DNA or RNA sequences input in FASTA format. </p>
+<p>Bases MUST be in UPPER CASE. However, line breaks, spaces, gaps, and special characters in sequence names are okay EXCEPT for commas. Sequence names MUST only occupy one line each and start with a ">" only. N.B.: Degenerate bases (i.e. anything other than ATUCG) are ignored. </p>
+<p>Each output is in the form of a comma-separated list, in the same order as the sequences were fed into the input. The form also returns average GC%, its variance, and standard deviation, but the number of decimal places given is arbitrary. I would round it off to 1 or 2 decimal places. The list of total GC% for each sequence is rounded to 2 d.p. </p>
+
+<form>
+<h2>Input</h2>
+<textarea id="inputtext" style="width:80%;height:80px;">>Hello
+ATCGT
+ACTGC
+CATGC
+>Bye
+ACTCT
+ACTCT
+ATCAT
+>Hi
+ACTAC
+ACTAT
+ACATC</textarea><br>
+<input type="button" onclick="gc_counter(document.getElementById('inputtext').value)" value="submit"><br>
+<br>
+<h2>Output</h2>
+Number of sequences:<br>
+<input type="text" id="numberofsequences"><br>
+<br>
+Sequence names:<br>
+<textarea id="namesofsequences" style="width:80%;height:80px;"></textarea><br>
+<br>
+Total GC% (rounded to two decimal places):<br>
+<textarea id="totalGC" style="width:80%;height:80px;"></textarea><br>
+<br>
+Average GC%: <input type="text" id="averageGC"><br>
+<br>
+Variance of GC%: <input type="text" id="GCvariance"><br>
+<br>
+Standard deviation of GC%: <input type="text" id="GCsd"><br>
+<br>
+Number of A:<br>
+<textarea id="numberA" style="width:80%;height:80px;"></textarea><br>	
+<br>
+Number of T:<br>
+<textarea id="numberT" style="width:80%;height:80px;"></textarea><br>	
+<br>
+Number of U:<br>
+<textarea id="numberU" style="width:80%;height:80px;"></textarea><br>	
+<br>
+Number of C:<br>
+<textarea id="numberC" style="width:80%;height:80px;"></textarea><br>	
+<br>
+Number of G:<br>
+<textarea id="numberG" style="width:80%;height:80px;"></textarea><br>	
+</form>
+
+
+
+</body>
+
+
+</html>

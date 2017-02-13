@@ -1,0 +1,34 @@
+<html>
+<header></header>
+
+<body>
+<h1>Bioinformatics Tools</h1>
+<p>Here are some simple scripts for manipulating bioinformatics data. They are implemented as webpage forms, so input can be copied and pasted in, and the output can be copied and pasted into your own files. How big can the input be? I don't know - but remember that this is Javascript we're talking about here.
+
+<p>The types of tools here are eclectic. They're mostly little things that I've found myself needing to do but couldn't find implemented somewhere convenient. I'm not sure who will use this - if you find yourself needing to match left and right brackets in a dot-bracket string chances are you already know how to do it - but perhaps this will save someone a half-hour or so of troubleshooting their own scripts.
+
+<p>The usual cautions apply: GIGO, and caveat emptor. They've worked for me, but perhaps you'll find some error that I've overlooked. Let me know if that happens.
+
+<h2>List of tools</h2>
+
+<ul>
+<li> <b><a href="charactercounter.html">charrun</a></b> looks for character 'runs' (same character repeated in adjacent positions) for a given character (user-specified) in strings of text. 
+<li> <b><a href="bracketcounter.html">bracketmatch</a></b> matches up complementary left- and right-brackets in dot-bracket representations of RNA secondary structure, and spits out a list of paired base positions.
+<li> <b><a href="GC-counter.html">GCcalc</a></b> finds the GC% for each sequence in a FASTA-formatted input.
+<li> <b><a href="text-replacer-script.html">replaceme</a></b> takes an input text, a word list A, and a list of replacement words B, and swaps out the first instances of words in A with their corresponding aliases in B.
+<li> <b><a href="codon-counter.html">codoncount</a></b> counts the number of occurrences of each of the 64 possible codons in each sequence of a FASTA-formatted input. Useful data for studying codon bias.
+</ul>
+
+Full instructions for using the tools are on the separate pages. Suggestions welcome, but no tech support is available. 
+
+<h2>Links to useful Javascript resources</h2>
+
+<ul>
+<li><a href="https://developer.mozilla.org/en/JavaScript/Guide">Javascript Guide</a> from Mozilla Developer Network (MDN)
+<li><a href="http://www.tizag.com/javascriptT/">Tutorial</a> from Tizag.com
+<li><a href="http://www.w3schools.com/js/default.asp">Tutorial</a> from W3Schools.com
+</ul>
+
+</body>
+
+</html>

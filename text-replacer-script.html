@@ -1,0 +1,68 @@
+<html>
+<head>
+<title>Text-replacer</title>
+<script type="text/javascript">
+var linebreak="<br />";
+function replacerscript(elem){
+	var tobereplaced_raw=document.getElementById('tobereplaced').value;
+	var searchtext_array=tobereplaced_raw.split(",");
+	var replacementtext_raw=document.getElementById('replacementtext').value;
+	var replacetext_array=replacementtext_raw.split(",");
+	if(searchtext_array.length != replacetext_array.length){
+		alert("Number of search terms does not match number of replace terms!")
+		}
+	else{
+		var processed_text=elem;
+		for(i=0;i<searchtext_array.length;i++){
+			 processed_text = processed_text.replace(searchtext_array[i],replacetext_array[i])
+		}
+		document.getElementById('outputtext').innerHTML=processed_text;
+	}
+}
+</script>
+</head>
+
+<body>
+<center><a href="index.html">home</a></center>
+<h1>Search-and-Replace Script</h1>
+
+<h2>Motivation</h2>
+<p>Many computer programs for phylogenetic analysis have restrictions on the format of data input. For some software, names of sequences in a file (e.g. in FASTA or NEXUS format) cannot exceed a certain number of characters, or cannot have special characters. If sequence names are descriptive, renaming or truncating them makes the output hard to interpret at first glance.</p>
+<p>To get around this problem, it is desirable to have a set of replacement names (which can be arbitrary but unique) for the sequences, swapping them in before input, then swapping them out again in the output. This simple script does just that.</p>
+
+<h2>How to Use</h2>
+<ul>
+<li>This is not a polished product but merely part of a jury-rigged workflow. Input can be any text (e.g. plain English, FASTA format). Copy and paste into the text box below. </li>
+<li>Make a list of the original sequence names, separated by commas (make sure that the original names DO NOT have commas!). Copy that into the second text box.</li>
+<li>Make another list, of the corresponding aliases (replacement names), separated by commas. This must be IN THE SAME ORDER as the original names they are meant to replace. </li>
+<li>The script will check if the number of entries in the first list is the same as that in the second list, but you are solely responsible for making sure that the order, formatting, and text is correct. <i>There is no other error-checking mechanism.</i></li>
+<li>Be sure to save a copy of all the input that you run through this script, so that you can troubleshoot or undo any changes if there has been a mistake.</li>
+<li>Note that the script does not check for repeated names. If a search string you wish to replace occurs more than once, the script will only replace the first instance of it.</li>
+</ul>
+
+<h2>Search and Replace Form</h2>
+<form>
+
+Original text (line breaks are ok): <br />
+<textarea id="inputtext" style="width:80%;height:200px">Hello my darlings I love you lots and lots and lots
+My cookie is a big sundae. 
+New lines new lines new lines.</textarea>
+<br><br>
+Replace first instances of the following (separate with commas):<br />
+<textarea id="tobereplaced" style="width:80%;height:50px;">cookie,sundae</textarea>
+<br><br>
+With (separate with commas): <br />
+<textarea id="replacementtext" style="width:80%;height:50px;">umbrella,funday</textarea>
+<br /><br>
+<input type="button" onclick="replacerscript(document.getElementById('inputtext').value)" value="submit">
+
+</form>
+
+<br>
+<h2>Output</h2>
+<textarea id="outputtext" style="width: 80%;height:200px;">Output text appears here</textarea>
+
+
+</body>
+
+</html>

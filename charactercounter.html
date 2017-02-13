@@ -1,0 +1,80 @@
+<html>
+<head>
+<title>Character-run searcher</title>
+<script type="text/javascript">
+function breakerscript(elem,felem){
+	var input_raw=elem;
+	var superarray=input_raw.split("");
+	var breakscounter=0;
+	var chararray = new Array();
+	var numstartarray = new Array();
+	var numendarray = new Array();
+	chararray[0]=superarray[0];
+	numstartarray[0]=1;
+	numendarray[0]=1;
+	for(i=1;i<superarray.length;i++){
+		if(superarray[i]!=superarray[i-1]){
+		numendarray[breakscounter]=i;
+		breakscounter=breakscounter+1;
+		chararray[breakscounter]=superarray[i];
+		numstartarray[breakscounter]=i+1;
+		}
+		else{
+		numendarray[breakscounter]=superarray.length;
+		}
+	}
+	document.getElementById('output_breaks').value=breakscounter;
+	document.getElementById('output_chars').innerHTML=chararray;
+	var placesarray = new Array();
+	var placescounter=0;
+	if(input_raw.search(felem)==-1){
+		alert("search character not found in input text!");
+		}
+	else{
+		for(j=0;j<chararray.length;j++){
+			if(chararray[j]==felem){
+			placesarray[placescounter]=numstartarray[j]+"-"+numendarray[j];
+			placescounter=placescounter+1;
+			}
+			else{}
+		}
+	document.getElementById('output_pos').innerHTML=placesarray;
+	}
+}
+</script>
+</head>
+
+<body>
+<center><a href="index.html">home</a></center>
+<h1>Character-run searcher</h1>
+This script searches for character 'runs' in a string of text. For example, if we have the string "tttttaaaaatttt" the character 't' runs for five characters, followed by 'a' for five, and then 't' again for four. There are two 'breaks' in the runs, and we want to retrieve the character positions for which, say, character 't' is present. 
+
+This script will output the number of breaks between runs, the characters of the runs in order ('running order'!), and the numerical positions of the character of interest within the string.
+
+<h2>Motivation</h2>
+Suppose there is some sequence alignment where one line is an annotation (e.g. structural features). This script will pull out the position numbers of a certain character representing some annotated feature, so that we can manually add a character set to a NEXUS formatted file. 
+
+<form>
+<h2>Input</h2>
+Input text to be processed:<br>
+<textarea id="tobebroken" style="width:80%;height:50px;">tatatat</textarea>
+<br>
+Input character to be counted (ONE ONLY, NO SPACES):
+<input type="text" id="charactertotrace">
+<input type="button" onclick="breakerscript(document.getElementById('tobebroken').value,document.getElementById('charactertotrace').value)" value="submit">
+<br>
+<br>
+<h2>output</h2>
+Number of breaks in character runs:
+<input type="text" id="output_breaks">
+<br>
+List of characters in the input string (in order, separated by commas):<br>
+<textarea id="output_chars" style="width:80%;height:50px;"></textarea>
+<br>
+Desired character found in the following positions:<br>
+<textarea id="output_pos" style="width:80%;height:50px;"></textarea>
+</form>
+</body>
+
+</html>
+
